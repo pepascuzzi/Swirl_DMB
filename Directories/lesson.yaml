@@ -1,0 +1,349 @@
+- Class: meta
+  Course: Swirl_DMB
+  Lesson: Directories
+  Author: Pete E. Pascuzzi
+  Type: Standard
+  Organization: Purdue University
+  Version: 2.4.3
+
+- Class: text
+  Output: To learn R, it is important to become familiar with how files 
+    are organized in directories on your computer.  On graphics-oriented 
+    operating systems such as Windows and Mac OSX, directories are represented 
+    as folders.
+
+- Class: text
+  Output: With R, you navigate and create directories and files using functions 
+    such as 'getwd()', 'setwd()', 'dir.create()', 'list.files()' and 'file.info()'.  The Unix 
+    equivalents are 'pwd', 'cd', 'mkdir', 'ls' and 'ls -l'.
+
+- Class: text
+  Output: When you start R, whether you use R Studio, the R app or the command
+    line, you have a working directory.  This is the location on your computer 
+    where R looks for files or saves results.
+
+- Class: cmd_question
+  Output: To determine your current working directory enter 'getwd()'.
+  CorrectAnswer: getwd()
+  AnswerTests: omnitest(correctExpr='getwd()')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: If your working directory is set to the default R working directory, 
+    you should see something like this, '/Users/YourName', on a Mac.  On a PC, 
+    it should look something like this, 'C:/Users/YourName/Documents'.  
+
+- Class: text
+  Output: These are called an absolute paths because they start from your 
+    root directory.  If you think of the directory structure of your computer 
+    as a tree, then the root directory is at the base of the tree.  All 
+    intervening subdirectories are shown, separated by forward slashes.  The 
+    path terminates with the name of your current working directory.
+
+- Class: text
+  Output: In some cases, you may see a path to a directory with a trailing 
+    forward slash, "/", e.g. 'C:/Users/YourName/Documents/'.  This is largely 
+    a matter of preference, and not required with R.
+
+- Class: text
+  Output: SYNTAX TIP.  There are two types of slashes that you will use in R.  
+    The slash or forward slash '/' and the backslash '\'.  On Unix-like operating 
+    systems, the slash is used in file paths.  On Windows, the backslash is used.  
+    However, R will only accept forward slashes in file paths regardless of 
+    operating system!  This can be confusing, but please keep this in mind if you type 
+    or copy-and-paste a Windows file path into your R code.  You need to 
+    change all backslashes to forward slashes!
+
+- Class: text
+  Output: You will frequently need to read data from files on your computer 
+    into R.  Therefore, you need some way to keep track of files.
+
+- Class: cmd_question
+  Output: Check the contents of your current working directory by entering 
+    'list.files()'.
+  CorrectAnswer: list.files()
+  AnswerTests: omnitest(correctExpr='list.files()')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: This will list all visible files and subdirectories in your 
+    current working directory.  There are several arguments to 'list.files()'
+    that will allow you to get more information.  If you set the argument 
+    'all = TRUE', then hidden files will also be displayed.
+
+- Class: text
+  Output: Two possible hidden files are ".RData" and ".Rhistory", two files 
+    that can be produced when you work with R.
+
+- Class: cmd_question
+  Output: Check for invisible files in your working directory by entering 
+    'list.files(all = TRUE)'.
+  CorrectAnswer: list.files(all = TRUE)
+  AnswerTests: omnitest(correctExpr='list.files(all = TRUE)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: You can look at the contents of other directories as well by specifying 
+    a path for 'list.files()'.  In R, you can use Unix notations to refer 
+    to certain absolute and relative directories.
+
+- Class: text
+  Output: The forward slash, "/", indicates your root directory.  There are times 
+    when you may need to access items in your root directory, but be careful!  
+    You can really screw up your computer if you do not know what you are doing!
+
+- Class: cmd_question
+  Output: Look at the contents of your root directory by entering 'list.files(path = "/")'.
+  CorrectAnswer: list.files(path = "/")
+  AnswerTests: omnitest(correctExpr='list.files(path = "/")')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: The tilde, "~", indicates your home directory (not working directory).  
+    On computers with multiple users, this is where all user-specific data 
+    and information is stored.  Feel free to create directories and store 
+    files almost anywhere in your home directory and subdirectories.
+
+- Class: cmd_question
+  Output: Look at the contents of your home directory by entering 'list.files(path = "~")'.
+  CorrectAnswer: list.files(path = "~")
+  AnswerTests: omnitest(correctExpr='list.files(path = "~")')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: There are also two notations that are relative.  A period "." 
+    indicates your current directory, so 'list.files()' and 'list.files(".")' 
+    will produce the same results.  This shorthand notation can be quite 
+    useful for some programming tasks, e.g. look at the default values for 
+    the arguments to 'list.files()'.  You will find that 'path = "."'.
+
+- Class: text
+  Output: Two periods, "..", indicates the parent directory of your current 
+    directory, i.e. up one level towards the root directory in the directory 
+    hierarchy.
+
+- Class: cmd_question
+  Output: Look at the contents of your current parent directory by entering 
+    'list.files(path = "..")'.
+  CorrectAnswer: list.files(path = "..")
+  AnswerTests: omnitest(correctExpr='list.files(path = "..")')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: Why is all of this relevant?  Because, you will likely want to access files 
+    that are not in your working directory.  In fact, it is good 
+    practice to have a separate data directory or directories on your computer.  
+    In addition, it is likely that you will have files that are relevant for 
+    multiple projects, and it is undesirable to change the location or duplicate 
+    these files.
+
+- Class: text
+  Output: In the rest of this lesson, we are going to explore a data directory for 
+    a next generation DNA sequencing project.  This type of project generates a huge amount 
+    of data. Not only are the raw data files large, but the required data processing generates 
+    files at several steps, and these files are also large.
+
+- Class: text
+  Output: This dataset, accession number GSE80182, was downloaded from the National Center for Biotechnology 
+    Information (NCBI). Data for this study is found in both the Gene Expression Omnibus (GEO) and the 
+    Sequence Read Archive (SRA).  
+
+- Class: text
+  Output: Make sure that you have mounted '\\datadepot.rcac.purdue.edu\depot\ppascuzz' as 'Y:' 
+    on your lab computer.
+
+- Class: cmd_question
+  Output: Create a variable for the path to 'Y:/data/GSE80182' by entering 'data.dir <- "Y:/data/GSE80182"' 
+    in the R console.
+  CorrectAnswer: data.dir <- "Y:/data/GSE80182"
+  AnswerTests: omnitest(correctExpr='data.dir <- "Y:/data/GSE80182"')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: cmd_question
+  Output: List the files in 'data.dir' by entering 'list.files(data.dir)'.
+  CorrectAnswer: list.files(data.dir)
+  AnswerTests: omnitest(correctExpr='list.files(data.dir)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: Unlike 'ls' in Unix, you cannot pass additional arguments to get 
+    more information about the files.  However, you can use the function 
+    'file.info()' to do this. To do this, you need to create a variable that has 
+    the full path to the file(s).  
+    
+- Class: cmd_question
+  Output: Create an object of file names including path for the files in 'data.dir' 
+    by entering 'data.files <- list.files(data.dir, full.names=TRUE)'.
+  CorrectAnswer: data.files <- list.files(data.dir, full.names=TRUE)
+  AnswerTests: omnitest(correctExpr='data.files <- list.files(data.dir, full.names=TRUE)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: cmd_question
+  Output: Display this object by entering 'data.files'.
+  CorrectAnswer: data.files
+  AnswerTests: omnitest(correctExpr='data.files')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: cmd_question
+  Output: Get additional information for these files and directories by entering 
+    'file.info(data.files)'.
+  CorrectAnswer: file.info(data.files)
+  AnswerTests: omnitest(correctExpr='file.info(data.files)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+  
+- Class: text
+  Output: This creates a 'data frame' with information about the files and directories 
+    including size, permissions and times creation/modification/access times. The file 
+    names with path are stored as 'row names' in the 'data frame'.  
+
+- Class: text
+  Output: Consider the organization of the files and subdirectories in 'data.dir'.  Do
+    you think these files are well-organized?  Do you have any suggestions?  
+
+- Class: text
+  Output: Note that only actual files have a size.  We have no additional information about 
+    the files in the subdirectores of 'data.dir', yet.  We can get these files too by 
+    setting the argument 'recursive=TRUE'.
+
+- Class: cmd_question
+  Output: Create an object of file names including path for the files in 'data.dir' 
+    by entering 'data.files.all <- list.files(data.dir, full.names=TRUE, recursive=TRUE)'.
+  CorrectAnswer: data.files.all <- list.files(data.dir, full.names=TRUE, recursive=TRUE)
+  AnswerTests: omnitest(correctExpr='data.files.all <- list.files(data.dir, full.names=TRUE, recursive=TRUE)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: cmd_question
+  Output: Determine the number of all files in 'data.dir', including subdirectories, by 
+    entering 'length(data.files.all)'.
+  CorrectAnswer: length(data.files.all)
+  AnswerTests: omnitest(correctExpr='length(data.files.all)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: cmd_question
+  Output: Display the first twenty values in 'data.files.all' by entering 
+    'data.files.all[1:20]'.
+  CorrectAnswer: data.files.all[1:20]
+  AnswerTests: omnitest(correctExpr='data.files.all[1:20]')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: There should be nearly 700 files in the directory. We can now use 
+    'file.info()' to get additional information for all of these files.  This 
+    will take about a minute. 
+
+- Class: cmd_question
+  Output: Enter 'file.info.all <- file.info(data.files.all)'.
+  CorrectAnswer: file.info.all <- file.info(data.files.all)
+  AnswerTests: omnitest(correctExpr='file.info.all <- file.info(data.files.all)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: You can use this information to help you manage your data and document your decisions.  
+    For example, we can determine the size of all files in 'data.dir'. We can use the 'sum()' 
+    function for this, but we need to allow for missing values (Not Available or NA), so we 
+    need to set 'na.rm=TRUE' to remove all NA values before we calculate the sum. 
+
+- Class: cmd_question
+  Output: Enter 'sum(file.info.all$size, na.rm=TRUE) / (10^9)' to determine the total 
+    file size in gigabytes.
+  CorrectAnswer: sum(file.info.all$size, na.rm=TRUE) / (10^9)
+  AnswerTests: omnitest(correctExpr='sum(file.info.all$size, na.rm=TRUE) / (10^9)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: It would be helpful if we could break this down by subdirectory and file type. 
+    R has two functions that can help you do this, 'dirname()' will extract the directory path from a 
+    file path while 'basename()' will extract the file name.  In addition, I have written 
+    a function, 'getExtension()' that will extract the file extension from a file name. 
+
+- Class: cmd_question
+  Output: Enter 'dir.names <- dirname(data.files.all)' to extract the directory path for all
+    files in 'data.dir'.
+  CorrectAnswer: dir.names <- dirname(data.files.all)
+  AnswerTests: omnitest(correctExpr='dir.names <- dirname(data.files.all)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: cmd_question
+  Output: Enter 'base.names <- basename(data.files.all)' to extract the file names for all
+    files in 'data.dir'.
+  CorrectAnswer: base.names <- basename(data.files.all)
+  AnswerTests: omnitest(correctExpr='base.names <- basename(data.files.all)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: cmd_question
+  Output: Enter 'file.extensions <- sapply(base.names, getExtension)' to get the file 
+    extensions for all files in 'data.dir'.  The function 'sapply()' was required so 
+    that we would get the extensions for all files in 'base.names'. More on 'sapply()' 
+    later in class
+  CorrectAnswer: file.extensions <- sapply(base.names, getExtension)
+  AnswerTests: omnitest(correctExpr='file.extensions <- sapply(base.names, getExtension)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: Now, we can use this additional data to break down the file sizes by 
+    subdirectory.  This could help you to maximize your storage. To achieve this, 
+    we need to introduce another R function 'tapply()'.  This function allows you 
+    to group and summarize one variable by another.  In our case, we want to group 
+    the file size by subdirectory and then determine the mean. 
+
+- Class: cmd_question
+  Output: Enter 'tapply(file.info.all$size, dir.names, sum, na.rm=TRUE)' to determine the combined
+    file size for all subdirectories in 'data.dir'.
+  CorrectAnswer: tapply(file.info.all$size, dir.names, sum, na.rm=TRUE)
+  AnswerTests: omnitest(correctExpr='tapply(file.info.all$size, dir.names, sum, na.rm=TRUE)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: Look at the results.  Do you see any potential problems?
+
+- Class: text
+  Output: We can also determine files sizes by file extension. What would you 
+    need to change in the previous statement?  
+
+- Class: cmd_question
+  Output: Enter 'tapply(file.info.all$size, file.extensions, sum, na.rm=TRUE)' to determine the combined
+    file size for all files with each file extension.
+  CorrectAnswer: tapply(file.info.all$size, file.extensions, sum, na.rm=TRUE)
+  AnswerTests: omnitest(correctExpr='tapply(file.info.all$size, file.extensions, sum, na.rm=TRUE)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: Again, this information could help you to make data management decisions with clear 
+    documentation. 
+
+- Class: text
+  Output: We can also assess the subdirectory organization with this data. We can use 'table()' 
+    to make a table of file extensions by subdirectory. 
+
+- Class: cmd_question
+  Output: Enter 'table(dir.names, file.extensions)' to determine the type of file 
+    in each subdirectory.
+  CorrectAnswer: table(dir.names, file.extensions)
+  AnswerTests: omnitest(correctExpr='table(dir.names, file.extensions)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: Consider the recommended organization by Noble, do you think the data in 
+    'data.dir' is well organized?
+    
+- Class: text
+  Output: There is one final argument for 'list.files()' that can be very useful.  By specifying 
+    a 'pattern' you can locate specific types of files very easily.  Of course, this requires 
+    that you follow good file naming conventions. 
+
+- Class: cmd_question
+  Output: Make an object with the path and file name of all files that contain the pattern 'fastq' 
+    by entering 'fastq.files <- list.files(data.dir, full.names=TRUE, recursive=TRUE, pattern="fastq$")'. 
+    The dollar sign at the end of the pattern indicates that no characters can follow 'fastq' in the file name. 
+  CorrectAnswer: fastq.files <- list.files(data.dir, full.names=TRUE, recursive=TRUE, pattern="fastq$")
+  AnswerTests: omnitest(correctExpr='fastq.files <- list.files(data.dir, full.names=TRUE, recursive=TRUE, pattern="fastq$")')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
+
+- Class: text
+  Output: We can take a quick peek at these files by using 'readLines()' and 'sapply()'. 
+
+- Class: cmd_question
+  Output: Enter 'sapply(fastq.files, readLines, n=10)'
+  CorrectAnswer: sapply(fastq.files, readLines, n=10)
+  AnswerTests: omnitest(correctExpr='sapply(fastq.files, readLines, n=10)')
+  Hint: Please type the assignment VERBATIM! (Copy and paste permitted)
